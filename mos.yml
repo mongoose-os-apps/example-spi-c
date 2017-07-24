@@ -1,0 +1,26 @@
+name: example_spi_c
+# arch: PLATFORM
+version: 1.0
+
+libs_version: ${mos_version}
+modules_version: ${mos_version}
+mongoose_os_version: ${mos_version}
+
+sources:
+  - src
+
+libs:
+  - origin: https://github.com/mongoose-os-libs/rpc-service-config
+  - origin: https://github.com/mongoose-os-libs/rpc-service-fs
+  - origin: https://github.com/mongoose-os-libs/rpc-uart
+  - origin: https://github.com/mongoose-os-libs/spi
+
+config_schema:
+  - ["spi.enable", true]
+
+tags:
+  - c
+  - hw
+  - spi
+
+skeleton_version: 2017-06-16
