@@ -1,19 +1,20 @@
 #include "mgos.h"
 #include "mgos_spi.h"
+#include "mgos_timers.h"
 
 /*
  * This example demonstrates how to use the C SPI API.
  *
  */
 
-enum mgos_app_init_result mgos_app_init(void) {
+void timer_cb(void *arg) {
   struct mgos_spi *spi;
 #if 1
   /* Global SPI instance is configured by the `spi` config section. */
   spi = mgos_spi_get_global();
   if (spi == NULL) {
     LOG(LL_ERROR, ("SPI is not configured, make sure spi.enable is true"));
-    return MGOS_APP_INIT_ERROR;
+    return;
   }
 #else
   /* Alternatively, you can set up the bus manually. */
@@ -51,11 +52,15 @@ enum mgos_app_init_result mgos_app_init(void) {
   txn.hd.rx_data = rx_data;
   if (!mgos_spi_run_txn(spi, false /* full_duplex */, &txn)) {
     LOG(LL_ERROR, ("SPI transaction failed"));
-    return MGOS_APP_INIT_ERROR;
+    return;
   }
 
   LOG(LL_INFO,
       ("JEDEC ID: %02x %02x %02x", rx_data[0], rx_data[1], rx_data[2]));
+  (void) arg;
+}
 
+enum mgos_app_init_result mgos_app_init(void) {
+  mgos_set_timer(1000, true, timer_cb, NULL);
   return MGOS_APP_INIT_SUCCESS;
 }
