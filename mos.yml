@@ -1,6 +1,7 @@
-name: example_spi_c
 # arch: PLATFORM
 version: 1.0
+author: mongoose-os
+description: SPI usage example in C/C++
 
 libs_version: ${mos_version}
 modules_version: ${mos_version}
