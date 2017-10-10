@@ -18,7 +18,7 @@ void timer_cb(void *arg) {
   }
 #else
   /* Alternatively, you can set up the bus manually. */
-  struct sys_config_spi bus_cfg = {
+  struct mgos_config_spi bus_cfg = {
       .unit_no = 3,
       .miso_gpio = 19,
       .mosi_gpio = 23,
